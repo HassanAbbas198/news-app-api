@@ -11,6 +11,7 @@ module.exports = {
   },
   rules: {
     'prettier/prettier': 'error',
-    'comma-dangle': ['warn', 'never']
+    'comma-dangle': ['warn', 'never'],
+    'no-unused-vars': ['warn']
   }
 };
