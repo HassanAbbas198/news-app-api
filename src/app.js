@@ -2,13 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 require('./db/mongoose');
-
+const newsRoutes = require('./routes/news');
 const ENV = require('./config/config');
 
-const app = express();
-
 const { PORT } = ENV;
-
+const app = express();
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
@@ -23,6 +21,8 @@ app.use((req, res, next) => {
   );
   next();
 });
+
+app.use('/api/news', newsRoutes);
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
