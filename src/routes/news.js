@@ -6,7 +6,7 @@ const isAuth = require('../middleware/isAuth');
 
 router.get('', NewsController.getAllNews);
 
-router.post('/addNews', NewsController.addNews);
+router.post('/addNews', isAuth, NewsController.addNews);
 
 router.get('/:id', NewsController.getNewsDetails);
 

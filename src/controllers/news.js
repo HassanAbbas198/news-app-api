@@ -7,9 +7,10 @@ exports.addNews = async (req, res, next) => {
   });
 
   try {
-    await news.save();
+    const result = await news.save();
     res.status(201).json({
-      message: 'News added successfully'
+      message: 'News added successfully',
+      result
     });
   } catch (error) {
     res.status(500).json({
