@@ -3,8 +3,7 @@ const News = require('../models/News');
 exports.addNews = async (req, res, next) => {
   const news = new News({
     headline: req.body.headline,
-    description: req.body.description,
-    category: req.body.category
+    description: req.body.description
   });
 
   try {
@@ -33,7 +32,7 @@ exports.getAllNews = async (req, res, next) => {
     const allNews = await newsQuery;
 
     res.status(200).json({
-      message: 'Data fetched succesfully',
+      message: 'Data fetched successfully',
       data: allNews
     });
   } catch (error) {
