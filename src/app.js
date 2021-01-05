@@ -6,6 +6,7 @@ require('./db/mongoose');
 const ENV = require('./config/config');
 const newsRoutes = require('./routes/news');
 const userRoutes = require('./routes/user');
+const categoryRoutes = require('./routes/category');
 
 const { PORT } = ENV;
 const app = express();
@@ -26,6 +27,7 @@ app.use((req, res, next) => {
 
 app.use('/api/news', newsRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/categories', categoryRoutes);
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
