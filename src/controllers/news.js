@@ -19,6 +19,31 @@ exports.addNews = async (req, res, next) => {
   }
 };
 
+exports.updateNews = async (req, res, next) => {
+  const updatedNews = new News({
+    _id: req.params.id,
+    headline: req.body.headline,
+    description: req.body.description
+  });
+
+  try {
+    const result = await News.updateOne({ _id: req.params.id }, updatedNews);
+    if (result.n > 0) {
+      res.status(200).json({
+        message: 'Post updated successfully'
+      });
+    } else {
+      res.status(401).json({
+        message: 'Not authorized'
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: 'Could not update post'
+    });
+  }
+};
+
 exports.getAllNews = async (req, res, next) => {
   const pageSize = +req.query.pagesize || 10;
   const currentPage = +req.query.page || 1;
