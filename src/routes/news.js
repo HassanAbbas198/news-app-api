@@ -6,6 +6,8 @@ const isAuth = require('../middleware/isAuth');
 
 router.get('', NewsController.getAllNews);
 
+router.get('/:category', NewsController.getNewsByCategory);
+
 router.post('/addNews', isAuth, NewsController.addNews);
 
 router.put('/:id', isAuth, NewsController.updateNews);

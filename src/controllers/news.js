@@ -54,10 +54,7 @@ exports.getAllNews = async (req, res, next) => {
   const currentPage = +req.query.page || 1;
 
   const newsQuery = News.find().sort({ createdAt: -1 }).populate('category');
-
-  if (pageSize && currentPage) {
-    newsQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
-  }
+  newsQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
 
   try {
     const allNews = await newsQuery;
@@ -65,6 +62,26 @@ exports.getAllNews = async (req, res, next) => {
     res.status(200).json({
       message: 'Data fetched successfully',
       data: allNews
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: 'Could not fetch data'
+    });
+  }
+};
+
+exports.getNewsByCategory = async (req, res, next) => {
+  const category = req.params.category;
+  const result = await Category.findOne({ name: category });
+
+  try {
+    const newsByCategory = await News.find({
+      category: result._id
+    });
+
+    res.status(200).json({
+      message: 'Data fetched successfully',
+      data: newsByCategory
     });
   } catch (error) {
     res.status(500).json({
