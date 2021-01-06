@@ -1,16 +1,21 @@
 const News = require('../models/News');
+const Category = require('../models/Category');
 
 exports.addNews = async (req, res, next) => {
+  const category = req.body.category;
+  const result = await Category.findOne({ name: category });
+
   const news = new News({
     headline: req.body.headline,
-    description: req.body.description
+    description: req.body.description,
+    category: result._id
   });
 
   try {
-    const result = await news.save();
+    const addedNews = await news.save();
     res.status(201).json({
       message: 'News added successfully',
-      result
+      result: addedNews
     });
   } catch (error) {
     res.status(500).json({
@@ -48,7 +53,7 @@ exports.getAllNews = async (req, res, next) => {
   const pageSize = +req.query.pagesize || 10;
   const currentPage = +req.query.page || 1;
 
-  const newsQuery = News.find().sort({ createdAt: -1 });
+  const newsQuery = News.find().sort({ createdAt: -1 }).populate('category');
 
   if (pageSize && currentPage) {
     newsQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
