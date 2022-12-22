@@ -6,13 +6,13 @@
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/HassanAbbas198/news-app-api.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd my-project
+  cd news-app-api
 ```
 
 Install dependencies
